@@ -40,7 +40,30 @@ app.post("/createroom", (req, res) => {
         });
         console.log(`Room ${newRoom.id} created`);
 
-        waitForConnection(newRoom.id);
+        waitForConnection();
+    }
+});
+
+/*
+    POST /newquestion
+    
+    Request parameters: 
+        uid: Asker's userID
+        rid: Room ID for question
+        question: Question text
+    Response parameters: none (status code only)
+*/
+
+app.post("/newquestion", (req, res) => {
+    const uid = req.body ? req.body.uid : null;
+    const rid = req.body ? req.body.rid : null;
+    const question = req.body ? req.body.question : null;
+
+    if (uid && rid && question) {
+        queueQuestion(uid, rid, question);
+        res.sendStatus(200);
+    } else {
+        res.status(500).send("userID, roomID, or question text is missing");
     }
 });
 
@@ -49,16 +72,27 @@ app.listen(config.port, () => {
     console.log(`Server started on port ${config.port}`);
 });
 
+// Utility functions
+
 // Waits for a socket connection after a room is created
-function waitForConnection(roomId) {
+function waitForConnection() {
     io.on("connection", (socket) => {
         socket.on("start", (id) => {
             if (rooms[id]) {
                 rooms[id].socket = socket;
                 console.log(rooms[id].socket);
+                socket.emit(`Room socket created for ${id}`);
             } else {
                 socket.emit(`Room ${id} has not yet been created`);
             }
         });
+    });
+}
+
+// Queues a question for the room
+function queueQuestion(uid, rid, question) {
+    rooms[rid].questions.push({
+        "user": rooms[rid].users[uid],
+        "text": question
     });
 }
