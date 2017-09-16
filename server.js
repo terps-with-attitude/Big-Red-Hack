@@ -121,13 +121,14 @@ function waitForConnections() {
         socket.on("start", (data) => {
             const rid = data["rid"];
             const name = data["name"];
+            let connected = true;
             if (rooms[rid]) {
                 const uid = user.createUser(name, rooms[rid].users);
                 rooms[rid].users[uid].socket = socket;
-                socket.emit(`User socket created for ${uid}`);
             } else {
-                socket.emit(`Room ${id} has not yet been created`);
+                connected = false;
             }
+            socket.emit("join", { "status": `User ${connected ? "connected" : "not connected"}` });
         });
     });
 }
