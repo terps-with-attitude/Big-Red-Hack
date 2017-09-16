@@ -1,0 +1,23 @@
+{
+  "name": "big-red-hack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terps-with-attitude/big-red-hack.git"
+  },
+  "author": "Cameron Bernhardt (AstroCB)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/terps-with-attitude/big-red-hack/issues"
+  },
+  "homepage": "https://github.com/terps-with-attitude/big-red-hack#readme",
+  "dependencies": {
+    "socket.io": "^2.0.3"
+  }
+}
