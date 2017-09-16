@@ -19,7 +19,6 @@
   "dependencies": {
     "@google-cloud/speech": "^0.10.3",
     "body-parser": "^1.18.1",
-    "cors": "^2.8.4",
     "express": "^4.15.4",
     "socket.io": "^2.0.3"
   }
