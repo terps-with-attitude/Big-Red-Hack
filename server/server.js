@@ -1,6 +1,7 @@
 // Local imports
 const room = require("./room");
 const user = require("./user");
+const config = require("./config");
 
 // Express/endpoints setup
 const app = require("express")();
@@ -44,8 +45,8 @@ app.post("/createroom", (req, res) => {
 });
 
 // Start the app
-app.listen(3000, () => {
-    console.log("Server listening...");
+app.listen(config.port, () => {
+    console.log(`Server started ${config.port}`);
 });
 
 // Waits for a socket connection after a room is created
