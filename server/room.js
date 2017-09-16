@@ -15,6 +15,7 @@ exports.createRoom = (hostName) => {
         "id": id,
         "users": [],
         "host": user.createUser(hostName),
-        "muted": []
+        "muted": [],
+        "socket": null
     };
 }
