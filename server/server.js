@@ -44,10 +44,6 @@ app.post("/createroom", (req, res) => {
     }
 });
 
-app.get("/", (req, res) => {
-    res.status(200).send("This is Lecture.me's server.");
-})
-
 // Start the app
 app.listen(config.port, () => {
     console.log(`Server started on port ${config.port}`);
