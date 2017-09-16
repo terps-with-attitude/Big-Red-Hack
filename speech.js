@@ -1,24 +1,27 @@
-const Speech = require("@google-cloud/speech");
-
-const speech = Speech();
+const speech = require("@google-cloud/speech")({
+    "projectId": "lecture-me-1505571511176",
+    "keyFilename": "keyfile.json"
+});
 const config = {
-    "encoding": "BASE64",
-    "sampleRateHertz": 16000,
+    "encoding": "LINEAR16",
+    "sampleRateHertz": 8000,
     "languageCode": "en-US"
 };
 
-exports.decodeSpeech = (audio) => {
+exports.transcribe = (audio, callback = () => { }) => {
     const request = {
         "config": config,
-        "audio": audio
-    }
+        "audio": {
+            "content": audio
+        }
+    };
     speech.recognize(request)
         .then((data) => {
             const response = data[0];
             const transcription = response.results.map(result =>
                 result.alternatives[0].transcript).join('\n');
-            console.log(transcription);
+            callback(null, transcription);
         }).catch((err) => {
-            console.log(err);
+            callback(err);
         });
 }
