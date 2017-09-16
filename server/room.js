@@ -4,7 +4,7 @@ const user = require("./user");
 
 let rooms = new Set();
 
-exports.createRoom = (hostName) => {
+exports.createRoom = () => {
     let id = utils.genId(config.roomIdLength);
     while (rooms.has(id)) { // Prevent duplicates
         id = utils.genId(config.roomIdLength);
@@ -14,7 +14,7 @@ exports.createRoom = (hostName) => {
     return {
         "id": id,
         "users": {},
-        "host": user.createUser(hostName),
+        "host": user.createUser("Host"),
         "questions": [],
         "muted": [],
         "socket": null

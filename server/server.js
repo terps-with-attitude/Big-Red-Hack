@@ -21,27 +21,19 @@ let rooms = {};
 /*
     POST /createroom
     
-    Request parameters: 
-        name: Name of session host
+    Request parameters: none
     Response parameters:
         room_id: ID that uniquely identifies the room
             (used for students to join)
 */
 app.post("/createroom", (req, res) => {
-    const hostName = req.body ? req.body.name : null;
-    if (!hostName) {
-        res.status(500).send("Error: name field required");
-    } else {
-        const newRoom = room.createRoom(hostName);
-        rooms[newRoom.id] = newRoom;
+    const newRoom = room.createRoom();
+    rooms[newRoom.id] = newRoom;
 
-        res.status(200).send({
-            "room_id": newRoom.id
-        });
-        console.log(`Room ${newRoom.id} created`);
-
-        waitForConnection();
-    }
+    res.status(200).send({
+        "room_id": newRoom.id
+    });
+    console.log(`Room ${newRoom.id} created`);
 });
 
 /*
