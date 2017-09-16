@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/terps-with-attitude/big-red-hack#readme",
   "dependencies": {
-    "body-parser": "^1.18.1"
+    "body-parser": "^1.18.1",
+    "cors": "^2.8.4",
+    "express": "^4.15.4"
   }
 }
