@@ -53,8 +53,12 @@ app.listen(config.port, () => {
 function waitForConnection(roomId) {
     io.on("connection", (socket) => {
         socket.on("start", (id) => {
-            rooms[id].socket = socket;
-            console.log(rooms[id].socket);
+            if (rooms[id]) {
+                rooms[id].socket = socket;
+                console.log(rooms[id].socket);
+            } else {
+                socket.emit(`Room ${id} has not yet been created`);
+            }
         });
     });
 }
