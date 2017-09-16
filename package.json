@@ -1,11 +1,10 @@
 {
-  "name": "big-red-hack",
+  "name": "lecture.me",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "node server.js",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +17,6 @@
   },
   "homepage": "https://github.com/terps-with-attitude/big-red-hack#readme",
   "dependencies": {
-    "socket.io": "^2.0.3"
+    "body-parser": "^1.18.1"
   }
 }
