@@ -4,12 +4,16 @@ const user = require("./user");
 const config = require("./config");
 const speech = require("./speech");
 
+// External dependencies
+const fs = require("fs");
+const base64url = require("base64url");
+const wav = require("wav");
+
 // Express/endpoints setup
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
-const base64url = require("base64url");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -120,8 +124,8 @@ app.post("/newaudio", (req, res) => {
     const rid = req.body ? req.body.rid : null;
     const data = req.body ? req.body.data : null;
     const decoded = base64url.decode(data);
-    const fs = require("fs");
-    fs.writeFileSync("audio.3gp", decoded);
+    console.log(decoded);
+    // fs.writeFileSync("audio.3gp", decoded);
     if (!rid || !data) {
         res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
     } else {
