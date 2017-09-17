@@ -4,7 +4,7 @@ const speech = require("@google-cloud/speech")({
 });
 const config = {
     "encoding": "LINEAR16",
-    "sampleRateHertz": 8000,
+    "sampleRateHertz": 44100,
     "languageCode": "en-US"
 };
 
