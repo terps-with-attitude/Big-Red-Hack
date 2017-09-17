@@ -119,9 +119,17 @@ app.post("/newaudio", (req, res) => {
     const rid = req.body ? req.body.rid : null;
     const data = req.body ? req.body.data : null;
 
-    speech.transcribe(data, (err, transcription) => {
-        console.log(err ? err : transcription);
-    });
+    if (!rid || !data) {
+        res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
+    } else {
+        speech.transcribe(data, (err, transcription) => {
+            if (err) {
+                res.status(500).send(`Transcription failed with error ${err}`);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    }
 });
 
 // Start the app
