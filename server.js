@@ -135,7 +135,7 @@ app.post("/newaudio", (req, res) => {
         writer.end();
 
         const data = fs.readFileSync(path).toString("base64");
-
+        
         if (!rid || !data) {
             res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
         } else {
