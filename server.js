@@ -132,24 +132,23 @@ app.post("/newaudio", (req, res) => {
         const path = `streams/stream_${rid}.wav`;
         const writer = new wav.FileWriter(path);
         writer.write(buffer);
-        writer.end(() => {
+        writer.end();
 
-            const data = fs.readFileSync(path).toString("base64");
+        const data = fs.readFileSync(path).toString("base64");
 
-            if (!rid || !data) {
-                res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
-            } else {
-                speech.transcribe(data, (err, transcription) => {
-                    if (err) {
-                        res.status(500).send(`Transcription failed with error ${err}`);
-                    } else {
-                        console.log(transcription);
-                        res.sendStatus(200);
-                    }
-                });
-            }
-            buffer = "";
-        });
+        if (!rid || !data) {
+            res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
+        } else {
+            speech.transcribe(data, (err, transcription) => {
+                if (err) {
+                    res.status(500).send(`Transcription failed with error ${err}`);
+                } else {
+                    console.log(transcription);
+                    res.sendStatus(200);
+                }
+            });
+        }
+        buffer = "";
     } else {
         buffer += decoded;
     }
