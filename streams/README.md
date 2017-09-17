@@ -1,0 +1,1 @@
+This directory contains temporary streams used for holding audio data on the server.
