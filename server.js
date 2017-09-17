@@ -9,6 +9,7 @@ const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
+const base64url = require("base64url");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -118,7 +119,9 @@ app.post("/removequestion", (req, res) => {
 app.post("/newaudio", (req, res) => {
     const rid = req.body ? req.body.rid : null;
     const data = req.body ? req.body.data : null;
-
+    const decoded = base64url.decode(data);
+    const fs = require("fs");
+    fs.writeFileSync("audio.3gp", decoded);
     if (!rid || !data) {
         res.status(500).send("Room ID (rid) and base 64-encoded data required for this endpoint");
     } else {
@@ -129,6 +132,27 @@ app.post("/newaudio", (req, res) => {
                 console.log(transcription);
                 res.sendStatus(200);
             }
+        });
+    }
+});
+
+/*
+    POST /transcript
+    
+    Request parameters: 
+        rid: Room ID
+    Response parameters:
+        text: Current text of transcript
+
+*/
+
+app.post("/transcript", (req, res) => {
+    const rid = req.body ? req.body.rid : null;
+    if (!rid || !rooms[rid]) {
+        res.status(500).send("Room ID required for this endpoint");
+    } else {
+        res.status(200).send({
+            "text": rooms[rid].transcript
         });
     }
 });

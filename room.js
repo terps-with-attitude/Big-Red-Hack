@@ -17,6 +17,6 @@ exports.createRoom = () => {
         "host": user.createUser("Host"),
         "questions": [],
         "muted": [],
-        "socket": null
+        "transcript": ""
     };
 }
