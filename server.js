@@ -143,7 +143,7 @@ app.post("/newaudio", (req, res) => {
                 if (err) {
                     res.status(500).send(`Transcription failed with error ${err}`);
                 } else {
-                    console.log(transcription);
+                    console.log(transcription ? transcription : "NOPE");
                     res.sendStatus(200);
                 }
             });
