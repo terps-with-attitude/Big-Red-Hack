@@ -103,7 +103,26 @@ app.post("/removequestion", (req, res) => {
             res.status(500).send("Question couldn't be removed – list is empty");
         }
     }
-})
+});
+
+/*
+    POST /newaudio
+    
+    Request parameters: 
+        rid: Room ID
+        data: Base64-encoded audio
+    Response parameters: none (status code only)
+
+*/
+
+app.post("/newaudio", (req, res) => {
+    const rid = req.body ? req.body.rid : null;
+    const data = req.body ? req.body.data : null;
+
+    speech.transcribe(data, (err, transcription) => {
+        console.log(err ? err : transcription);
+    });
+});
 
 // Start the app
 app.listen(config.port, () => {
