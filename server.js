@@ -15,7 +15,7 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.bodyParser({ limit: '500mb' }));
+app.use(bodyParser.raw({ "limit": "50 mb" }));
 app.use(bodyParser.json());
 
 // Current active rooms
