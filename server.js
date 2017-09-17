@@ -132,7 +132,8 @@ app.post("/newaudio", (req, res) => {
         const path = `streams/stream_${rid}.wav`;
         const writer = new wav.FileWriter(path);
         writer.write(buffer);
-        writer.on("end", () => {
+        writer.end(() => {
+
             const data = fs.readFileSync(path).toString("base64");
 
             if (!rid || !data) {
